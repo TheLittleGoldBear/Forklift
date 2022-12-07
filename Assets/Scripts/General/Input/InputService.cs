@@ -8,6 +8,7 @@ namespace General.Input
 		#region Events
 
 		public event Action<float> ForwardMovementInput;
+		public event Action<float> SteeringInput;
 		public event Action<float> LiftingInput;
 
 		#endregion
@@ -47,6 +48,7 @@ namespace General.Input
 			}
 
 			m_inputManager.Keyboard.ForwardMovementInput.performed += OnForwardMovement;
+			m_inputManager.Keyboard.SteeringInput.performed += OnSteering;
 			m_inputManager.Keyboard.LiftingInput.performed += OnLifting;
 
 			m_registeredToEvents = true;
@@ -60,6 +62,7 @@ namespace General.Input
 			}
 
 			m_inputManager.Keyboard.ForwardMovementInput.performed -= OnForwardMovement;
+			m_inputManager.Keyboard.SteeringInput.performed -= OnSteering;
 			m_inputManager.Keyboard.LiftingInput.performed -= OnLifting;
 
 			m_registeredToEvents = false;
@@ -70,6 +73,13 @@ namespace General.Input
 			float inputValue = ctx.ReadValue<float>();
 
 			ForwardMovementInput?.Invoke(inputValue);
+		}
+
+		private void OnSteering(InputAction.CallbackContext ctx)
+		{
+			float inputValue = ctx.ReadValue<float>();
+
+			SteeringInput?.Invoke(inputValue);
 		}
 
 		private void OnLifting(InputAction.CallbackContext ctx)

@@ -37,6 +37,15 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SteeringInput"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""a32b7627-74ad-4d03-9708-ef780c9d39da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""LiftingInput"",
                     ""type"": ""PassThrough"",
                     ""id"": ""3f2346b1-3c24-4598-8577-3dac78d691ef"",
@@ -112,6 +121,39 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""action"": ""LiftingInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""2cde1e0d-be4e-4ee0-b45b-3359299386dd"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SteeringInput"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""e220f181-56a1-4da3-ae58-a39fb59a74b0"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SteeringInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""7b636bd1-47fd-4629-ba35-31bf0c6e76d6"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SteeringInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -121,6 +163,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         // Keyboard
         m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
         m_Keyboard_ForwardMovementInput = m_Keyboard.FindAction("ForwardMovementInput", throwIfNotFound: true);
+        m_Keyboard_SteeringInput = m_Keyboard.FindAction("SteeringInput", throwIfNotFound: true);
         m_Keyboard_LiftingInput = m_Keyboard.FindAction("LiftingInput", throwIfNotFound: true);
     }
 
@@ -182,12 +225,14 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Keyboard;
     private IKeyboardActions m_KeyboardActionsCallbackInterface;
     private readonly InputAction m_Keyboard_ForwardMovementInput;
+    private readonly InputAction m_Keyboard_SteeringInput;
     private readonly InputAction m_Keyboard_LiftingInput;
     public struct KeyboardActions
     {
         private @InputManager m_Wrapper;
         public KeyboardActions(@InputManager wrapper) { m_Wrapper = wrapper; }
         public InputAction @ForwardMovementInput => m_Wrapper.m_Keyboard_ForwardMovementInput;
+        public InputAction @SteeringInput => m_Wrapper.m_Keyboard_SteeringInput;
         public InputAction @LiftingInput => m_Wrapper.m_Keyboard_LiftingInput;
         public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
@@ -201,6 +246,9 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @ForwardMovementInput.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnForwardMovementInput;
                 @ForwardMovementInput.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnForwardMovementInput;
                 @ForwardMovementInput.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnForwardMovementInput;
+                @SteeringInput.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnSteeringInput;
+                @SteeringInput.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnSteeringInput;
+                @SteeringInput.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnSteeringInput;
                 @LiftingInput.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnLiftingInput;
                 @LiftingInput.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnLiftingInput;
                 @LiftingInput.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnLiftingInput;
@@ -211,6 +259,9 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @ForwardMovementInput.started += instance.OnForwardMovementInput;
                 @ForwardMovementInput.performed += instance.OnForwardMovementInput;
                 @ForwardMovementInput.canceled += instance.OnForwardMovementInput;
+                @SteeringInput.started += instance.OnSteeringInput;
+                @SteeringInput.performed += instance.OnSteeringInput;
+                @SteeringInput.canceled += instance.OnSteeringInput;
                 @LiftingInput.started += instance.OnLiftingInput;
                 @LiftingInput.performed += instance.OnLiftingInput;
                 @LiftingInput.canceled += instance.OnLiftingInput;
@@ -221,6 +272,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
     public interface IKeyboardActions
     {
         void OnForwardMovementInput(InputAction.CallbackContext context);
+        void OnSteeringInput(InputAction.CallbackContext context);
         void OnLiftingInput(InputAction.CallbackContext context);
     }
 }

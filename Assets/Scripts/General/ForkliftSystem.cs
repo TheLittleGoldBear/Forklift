@@ -1,5 +1,5 @@
 using General.Input;
-using Physic;
+using Physics;
 using UnityEngine;
 
 namespace General

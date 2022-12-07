@@ -7,6 +7,7 @@ namespace General.Input
 		#region Events
 
 		event Action<float> ForwardMovementInput;
+		event Action<float> SteeringInput;
 		event Action<float> LiftingInput;
 
 		#endregion

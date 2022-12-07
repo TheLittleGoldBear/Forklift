@@ -1,7 +1,7 @@
 using General.Input;
 using UnityEngine;
 
-namespace Physic
+namespace Physics
 {
 	public class LiftingController : MonoBehaviour
 	{

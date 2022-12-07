@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "SteeringInput",
+                    "type": "PassThrough",
+                    "id": "a32b7627-74ad-4d03-9708-ef780c9d39da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "LiftingInput",
                     "type": "PassThrough",
                     "id": "3f2346b1-3c24-4598-8577-3dac78d691ef",
@@ -88,6 +97,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "LiftingInput",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "2cde1e0d-be4e-4ee0-b45b-3359299386dd",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SteeringInput",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "e220f181-56a1-4da3-ae58-a39fb59a74b0",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SteeringInput",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "7b636bd1-47fd-4629-ba35-31bf0c6e76d6",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SteeringInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
