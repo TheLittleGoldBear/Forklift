@@ -18,10 +18,10 @@ namespace Physics
 
 		public bool CheckTouchGround()
 		{
-			Vector3 direction = -m_rayLength * m_mainRigidbody.transform.up;
+			Vector3 upDirection = m_mainRigidbody.transform.up;
 
-			return UnityEngine.Physics.Raycast(m_backLeftWheelRigidbody.transform.position, direction, m_rayLength, m_layerMask)
-				&& UnityEngine.Physics.Raycast(m_backRightWheelRigidbody.transform.position, direction, m_rayLength, m_layerMask);
+			return UnityEngine.Physics.Raycast(m_backLeftWheelRigidbody.transform.position, -upDirection, m_rayLength, m_layerMask)
+				&& UnityEngine.Physics.Raycast(m_backRightWheelRigidbody.transform.position, -upDirection, m_rayLength, m_layerMask);
 		}
 
 		#endregion
